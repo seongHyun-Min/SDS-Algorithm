@@ -9,7 +9,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class B_2252 {
-    static int[] outDegree;
+    static int[] inDegree;
     static ArrayList<ArrayList<Integer>> arr;
     static int N, M;
 
@@ -26,17 +26,17 @@ public class B_2252 {
         for (int i = 0; i < N+1; i++) {
             arr.add(new ArrayList<>());
         }
-        outDegree = new int[N + 1];
+        inDegree = new int[N + 1];
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            arr.get(a).add(b); // A <- B
-            outDegree[b] ++;
+            arr.get(a).add(b); // A -> B
+            inDegree[b] ++;
         }
         q = new LinkedList<>();
         for(int i=1; i<=N; i++){
-            if(outDegree[i] ==0){
+            if(inDegree[i] ==0){
                 q.offer(i); //큐에 넣어서 출력
             }
         }
@@ -44,8 +44,9 @@ public class B_2252 {
             int current = q.poll();
             sb.append(current + " "); //큐에서 뺀 순서로 넣어줘
             for(int i: arr.get(current)){
-                outDegree[i] --;
-                if(outDegree[i] ==0){
+                //이 노드를 넣었으면 이 노드 와 연결된 간선들을 다 제거 시켜줘
+                inDegree[i] --;
+                if(inDegree[i] ==0){
                     q.offer(i);
                 }
             }
