@@ -41,6 +41,7 @@ public class B_14621 {
             arr.get(a).add(new Edge(b ,c ,sex[b]));
             arr.get(b).add(new Edge(a, c, sex[a]));
         }
+        //
         dist =0;
         pq = new PriorityQueue<>();
         pq.offer(new Edge(1 , 0, sex[1]));
